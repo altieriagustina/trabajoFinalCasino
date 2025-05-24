@@ -1,5 +1,5 @@
 # trabajoFinalCasino
 
-Altieri, Agustina
-Flores, Ignacio
-Funes, Juan
+* Altieri, Agustina
+* Flores, Ignacio
+* Funes, Juan

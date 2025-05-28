@@ -1,0 +1,19 @@
+{
+  "name": "casinotimberos",
+  "version": "1.0.0",
+  "description": "Trabajo final POO",
+  "main": "main.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/altieriagustina/trabajoFinalCasino.git"
+  },
+  "author": "Altieri-Flores-Funes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/altieriagustina/trabajoFinalCasino/issues"
+  },
+  "homepage": "https://github.com/altieriagustina/trabajoFinalCasino#readme"
+}

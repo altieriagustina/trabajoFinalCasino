@@ -1,10 +1,10 @@
 import { IJuego } from "./IJuego";
+import * as rs from "readline-sync"
 
 export class Jugador {
     private saldo: number;
-    private resultado: number;
 
-    public constructor(pSaldo: number, pResultado: number) {
+    public constructor(pSaldo: number) {
         this.saldo = pSaldo;
     }
 
@@ -25,7 +25,7 @@ export class Jugador {
     }
 
     public mostrarSaldo(): string {
-        return `Su saldo es ...`;
+        return `Su saldo es ${this.getSaldo()}`;
     }
 
     public retirarSaldo(): string {

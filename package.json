@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/altieriagustina/trabajoFinalCasino/issues"
   },
-  "homepage": "https://github.com/altieriagustina/trabajoFinalCasino#readme"
+  "homepage": "https://github.com/altieriagustina/trabajoFinalCasino#readme",
+  "devDependencies": {
+    "@types/node": "^22.15.30"
+  }
 }

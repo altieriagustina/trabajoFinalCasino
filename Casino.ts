@@ -5,7 +5,7 @@ import { TragamonedasBasico } from "./Juegos/Tragamonedas/TragamonedasBasico";
 //import { FabricaDeJuegos } from "./Juegos/FabricaDeJuegos";
 import { MayorMenor } from "./Juegos/MayorMenor";
 import { TragamonedasPro } from "./Juegos/Tragamonedas/TragamonedasPro";
-import { CaraCruz } from "./Juegos/CaraCruz";
+import { CaraOCruz } from "./Juegos/CaraOCruz";
 
 export class Casino {
     private juegos: IJuego[];
@@ -44,31 +44,58 @@ export class Casino {
 
     //Muestra menu de juegos disponibles y pide al usuario seleccionar el juego deseado
     public mostrarJuegos(): void {
-        console.log(`Estos son los juegos disponibles`)
-        let menu = ['1 - SlotBasic', '2 - SlotPro', '3 - MayorMenor', '4 - Cara Cruz'];
+        console.log(`\n` + `Estos son los juegos disponibles`)
+        let menu = [`Slot Basic`, `Slot Pro`, `Mayor o Menor`, `Cara O Cruz`];
         let index = rs.keyInSelect(menu, `Selecciona el juego al que desea jugar: `);
 
-        this.seleccionarJuego(Number(menu[index]))
+        this.seleccionarJuego(index + 1);
     }
 
-    //Metodo que según el indice que reciba debe instanciar el juego seleccionado NO FUNCIONA
+    //Metodo que, según el indice que reciba, instancia el juego seleccionado 
     public seleccionarJuego(index: number): void {
+        
+        // TrabamonedasBasico
         if (index === 1) {
-            console.log(`Usted selecciono el juego SlotBasic`)
-            let nuevoTM = new TragamonedasBasico(`SlotBasic`, 5000, [], 0);
-            return nuevoTM.jugar()
-        } if (index === 2) {
-            console.log(`Usted selecciono el juego SlotPro`)
-            let nuevoTM = new TragamonedasPro(`SlotPro`, 10000, [], 0);
-            return nuevoTM.jugar()
-        } if (index === 3) {
-            console.log(`Usted selecciono el juego MayorMenor`)
+            console.log(`Usted selecciono el juego Slot Basic` + `\n`)
+            let nuevoTM = new TragamonedasBasico(`Slot Basic`, 5000, [], 0);
+            nuevoTM.apostar(nuevoTM.getMontoApostado(), this.jugador.getSaldo());
+            nuevoTM.jugar();
+            console.log(nuevoTM.mostrarResultado());
+            
+            if (nuevoTM.esGanador(nuevoTM.getResultado()) === true) {
+                console.log(`Usted ha ganado ${nuevoTM.obtenerGanancia()}`)
+            } else {
+                console.log(`\n` + `Siga participando`)
+            }
+        } 
+        
+        // TrabamonedasPro
+        if (index === 2) {
+            console.log(`Usted selecciono el juego Slot Pro` + `\n`)
+            let nuevoTM = new TragamonedasPro(`Slot Pro`, 10000, [], 0);
+            nuevoTM.apostar(nuevoTM.getMontoApostado(), this.jugador.getSaldo());
+            nuevoTM.jugar();
+            console.log(nuevoTM.mostrarResultado());
+            
+            if (nuevoTM.esGanador(nuevoTM.getResultado()) === true) {
+                console.log(`Usted ha ganado ${nuevoTM.obtenerGanancia()}`)
+            } else {
+                console.log(`\n` + `Siga participando`)
+            }
+        } 
+        
+        // MayorMenor
+        if (index === 3) {
+            console.log(`Usted selecciono el juego Mayor o Menor` + `\n`)
             let nuevoMM = new MayorMenor()
-            return nuevoMM.jugar();
-        } if (index === 4) {
-            console.log(`Usted selecciono el juego MayorMenor`)
-            let nuevoCC = new CaraCruz();
-            return nuevoCC.jugar();
+            console.log(nuevoMM.mostrarResultado());
+        } 
+        
+        // CaraOCruz
+        if (index === 4) {
+            console.log(`Usted selecciono el juego Cara o Cruz` + `\n`)
+            let nuevoCC = new CaraOCruz();
+            console.log(nuevoCC.mostrarResultado());
         }
     }
 }

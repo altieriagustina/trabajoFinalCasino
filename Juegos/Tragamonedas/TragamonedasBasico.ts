@@ -11,15 +11,19 @@ export class TragamonedasBasico extends Tragamonedas {
 
     public girarRueda(): string[] {
         let resultado: string[] = [];
+
         if (this.montoApostado > this.apuestaMinima) {
-            console.log(`¡Esta girando la rueda magica!` + `\n`)
+            console.log(`\n` + `¡Esta girando la rueda magica!` + `\n`)
+
             const frutas = ["🍒", "🍋", "🍇", "🍉"];
             resultado = Array.from({ length: 3 }, () => frutas[Math.floor(Math.random() * frutas.length)]);
         }
         return resultado
     }
 
+
+    // Recibe el resultado de girar rueda (un string[]) y el metodo every revisa que cada fruta (f) sea igual a la primera, si son todas iguales devuelve TRUE---> Ganó
     public esGanador(resultado: string[]): boolean {
-        return resultado.every(f => f === resultado[0]); // Metodo every: revisa que cada fruta (f) sea igual a la primera, si son todas iguales devuelve TRUE
+        return resultado.every(f => f === resultado[0]);
     }
 }

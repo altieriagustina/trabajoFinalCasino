@@ -1,5 +1,7 @@
 import { Casino } from "../../Casino";
 import { IJuego } from "../../IJuego";
+import { Jugador } from "../../Jugador";
+import * as rs from "readline-sync"
 
 export abstract class Tragamonedas implements IJuego {
     protected nombre: string;
@@ -10,7 +12,7 @@ export abstract class Tragamonedas implements IJuego {
     constructor(pNombre: string, pApuestaMinima: number, pResultado: string[], pMontoApostado: number) {
         this.nombre = pNombre;
         this.apuestaMinima = pApuestaMinima;
-        this.resultado = pResultado
+        this.resultado = pResultado;
         this.montoApostado = pMontoApostado;
     }
 
@@ -25,6 +27,9 @@ export abstract class Tragamonedas implements IJuego {
     public setResultado(pResultado: string[]) {
         this.resultado = pResultado;
     }
+    public setMontoApostado(pMOntoApostado: number) {
+        this.montoApostado = pMOntoApostado;
+    }
 
     //Getters
     public getNombre(): string {
@@ -36,26 +41,40 @@ export abstract class Tragamonedas implements IJuego {
     public getResultado(): string[] {
         return this.resultado;
     }
+    public getMontoApostado(): number {
+        return this.montoApostado;
+    }
 
     //Metodos IJuego
 
-    public apostar(monto: number): void {
+    public apostar(monto: number, saldoJugador: number): void {
+        monto = rs.questionInt(`Ingrese el monto que desea apostar: `)
+
+        //El monto aapostado no puede ser mayor al saldo del jugador 
+        if (monto > saldoJugador) {
+            throw new Error(`Su saldo es insuficiente`)
+        }
+
+        //El monto aapostado no puede ser menor a la apuesta minima
         if (monto < this.apuestaMinima) {
             throw new Error(`La apuesta mínima para el juego ${this.nombre} es ${this.apuestaMinima}`);
-        } //El monto aapostado tampoco puede ser mayor al saldo del jugador ----> falta verificacion
+        }
+
         this.montoApostado = monto;
+
     }
 
+    //El resultado obtiene el valor que retorna el método abstracto girar rueda (un string[])
     public jugar(): void {
         this.resultado = this.girarRueda();
     }
 
     public mostrarResultado(): string {
-        return `Su Resultado es:  ${this.resultado}`
+        return `Su Resultado es: ${this.resultado}`
     }
-
+    // Si esGanador devuelve TRUE (el jugador ganó) el monto apostado se * 2, sino se vuelve 0
     public obtenerGanancia(): number {
-        return this.esGanador(this.resultado) ? this.montoApostado * 2 : 0; // Ternaria, si esGanador devuelve TRUE el monto apostado se * 2, sino se vuelve 0
+        return this.esGanador(this.resultado) ? this.montoApostado * 2 : 0; //Operacion ternaria
     }
 
 

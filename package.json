@@ -18,5 +18,8 @@
   "homepage": "https://github.com/altieriagustina/trabajoFinalCasino#readme",
   "devDependencies": {
     "@types/node": "^22.15.30"
+  },
+  "dependencies": {
+    "chalk": "^5.4.1"
   }
 }

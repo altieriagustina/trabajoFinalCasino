@@ -4,8 +4,9 @@ import { Jugador } from "../../Jugador";
 import { IJuego } from "../../IJuego";
 
 export class TragamonedasBasico extends Tragamonedas {
-    constructor(pNombre: string, pApuestaMinima: number, pResultado: string[], pMontoApostado: number) {
-        super(pNombre, pApuestaMinima, pResultado, pMontoApostado)
+    constructor() {
+        super()
+        this.nombre = `Tragamonedas Basico`
         this.apuestaMinima = 5000;
     }
 

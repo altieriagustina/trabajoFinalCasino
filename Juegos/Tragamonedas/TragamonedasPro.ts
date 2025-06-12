@@ -4,14 +4,22 @@ import { Jugador } from "../../Jugador";
 import { IJuego } from "../../IJuego";
 
 export class TragamonedasPro extends Tragamonedas {
-    constructor(pNombre: string, pApuestaMinima: number, pResultado: string[], pMontoApostado: number) {
-        super(pNombre, pApuestaMinima, pResultado, pMontoApostado)
+    constructor() {
+        super()
+        this.nombre = `Tragamonedas Pro`;
         this.apuestaMinima = 10000;
     }
 
     public girarRueda(): string[] {
-        const simbolos = ["🔮", "💎", "❤️", "⭐", "🍀", "🚀", "🎁"];
-        return Array.from({ length: 5 }, () => simbolos[Math.floor(Math.random() * simbolos.length)]); // Metodo from: crea un nuevo arreglo de 3 elementos y llena cada elemento con lo que devuelve la funcion flecha
+        let resultado: string[] = [];
+
+        if (this.montoApostado > this.apuestaMinima) {
+            console.log(`\n` + `¡Esta girando la rueda magica!` + `\n`)
+
+            const simbolos = ["🔮", "💎", "❤️", "⭐", "🍀", "🚀", "🎁"];
+            resultado = Array.from({ length: 5 }, () => simbolos[Math.floor(Math.random() * simbolos.length)]); // Metodo from: crea un nuevo arreglo de 3 elementos y llena cada elemento con lo que devuelve la funcion flecha
+        }
+        return resultado;
     }
 
     public esGanador(resultado: string[]): boolean {

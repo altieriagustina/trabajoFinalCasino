@@ -1,4 +1,3 @@
-import { IJuego } from "./IJuego";
 import * as rs from "readline-sync"
 
 export class Jugador {

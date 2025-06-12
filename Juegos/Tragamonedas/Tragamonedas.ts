@@ -9,11 +9,11 @@ export abstract class Tragamonedas implements IJuego {
     protected resultado: string[];
     protected montoApostado: number;
 
-    constructor(pNombre: string, pApuestaMinima: number, pResultado: string[], pMontoApostado: number) {
-        this.nombre = pNombre;
-        this.apuestaMinima = pApuestaMinima;
-        this.resultado = pResultado;
-        this.montoApostado = pMontoApostado;
+    constructor() {
+        this.nombre = ` `;
+        this.apuestaMinima = 0;
+        this.resultado = [];
+        this.montoApostado = 0;
     }
 
     //Setters

@@ -6,7 +6,7 @@ import { IJuego } from "../../IJuego";
 export class TragamonedasBasico extends Tragamonedas {
     constructor() {
         super()
-        this.nombre = `Tragamonedas Basico`
+        this.nombre = `Slot Basic`
         this.apuestaMinima = 5000;
     }
 

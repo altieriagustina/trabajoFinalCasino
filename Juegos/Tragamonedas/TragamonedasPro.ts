@@ -6,7 +6,7 @@ import { IJuego } from "../../IJuego";
 export class TragamonedasPro extends Tragamonedas {
     constructor() {
         super()
-        this.nombre = `Tragamonedas Pro`;
+        this.nombre = `Slot Pro`;
         this.apuestaMinima = 10000;
     }
 
@@ -16,7 +16,7 @@ export class TragamonedasPro extends Tragamonedas {
         if (this.montoApostado > this.apuestaMinima) {
             console.log(`\n` + `¡Esta girando la rueda magica!` + `\n`)
 
-            const simbolos = ["🔮", "💎", "❤️", "⭐", "🍀", "🚀", "🎁"];
+            const simbolos = ["🔮", "💎", "❤️", "⭐", "🍀", "🚀"];
             resultado = Array.from({ length: 5 }, () => simbolos[Math.floor(Math.random() * simbolos.length)]); // Metodo from: crea un nuevo arreglo de 3 elementos y llena cada elemento con lo que devuelve la funcion flecha
         }
         return resultado;

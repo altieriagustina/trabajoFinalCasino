@@ -1,8 +1,8 @@
 import * as rs from "readline-sync"
 import { IJuego } from "./IJuego";
 import { Jugador } from "./Jugador";
-
 import { FabricaDeJuegos } from "./FabricaDeJuegos";
+import * as fs from "fs";
 
 export class Casino {
     private juegos: IJuego[];
@@ -30,6 +30,11 @@ export class Casino {
 
             this.mostrarJuegos();
 
+            // Archivo TXT aun sin funcionar
+            let resultadoTotal: string = `Su ganancia es: `;
+
+            fs.writeFileSync("info.txt", resultadoTotal)
+
         } else {
             console.log(`Debe ser mayor de 18 años para ingresar`)
         }
@@ -56,7 +61,7 @@ export class Casino {
         switch (index) {
             case 1:
                 let nuevoTMB = fabrica.crearJuego(`Tragamonedas Basico`);
-                console.log(`Usted selecciono el juego Slot Basic` + `\n`)
+                console.log(`Usted selecciono el juego ${nuevoTMB.getNombre()}` + `\n`)
 
                 nuevoTMB.apostar(nuevoTMB.getMontoApostado(), this.jugador.getSaldo());
                 nuevoTMB.jugar();
@@ -72,7 +77,7 @@ export class Casino {
             // TrabamonedasPro
             case 2:
                 let nuevoTMP = fabrica.crearJuego(`Tragamonedas Pro`);
-                console.log(`Usted selecciono el juego Slot Pro` + `\n`)
+                console.log(`Usted selecciono el juego ${nuevoTMP.getNombre()}` + `\n`)
 
                 nuevoTMP.apostar(nuevoTMP.getMontoApostado(), this.jugador.getSaldo());
                 nuevoTMP.jugar();

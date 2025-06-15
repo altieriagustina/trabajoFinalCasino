@@ -2,7 +2,6 @@ import { Casino } from "./Casino";
 import { Jugador } from "./Jugador";
 import { TragamonedasBasico } from "./Juegos/Tragamonedas/TragamonedasBasico";
 import {TragamonedasPro} from "./Juegos/Tragamonedas/TragamonedasPro"
-import * as fs from "fs"
 import { MayorMenor } from "./Juegos/MayorMenor";
 import { CaraOCruz } from "./Juegos/CaraOCruz";
 

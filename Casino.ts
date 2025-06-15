@@ -30,11 +30,6 @@ export class Casino {
 
             this.mostrarJuegos();
 
-            // Archivo TXT aun sin funcionar
-            let resultadoTotal: string = `Su ganancia es: `;
-
-            fs.writeFileSync("info.txt", resultadoTotal)
-
         } else {
             console.log(`Debe ser mayor de 18 años para ingresar`)
         }
@@ -56,7 +51,7 @@ export class Casino {
     //Metodo que, según el indice que reciba, instancia el juego seleccionado 
     public seleccionarJuego(index: number): void {
         let fabrica = new FabricaDeJuegos();
-
+try {
         // TrabamonedasBasico
         switch (index) {
             case 1:
@@ -67,11 +62,20 @@ export class Casino {
                 nuevoTMB.jugar();
                 console.log(nuevoTMB.mostrarResultado());
 
+                let total: number = this.jugador.getSaldo() + (nuevoTMB.obtenerGanancia() - nuevoTMB.getMontoApostado());
+                let saldoFInal: string = `Usted tiene un saldo acumulado de $ ${total}`; // Saldo original mas ganancia
+
                 if (nuevoTMB.esGanador(nuevoTMB.getResultado()) === true) {
-                    console.log(`Usted ha ganado ${nuevoTMB.obtenerGanancia()}`)
+                    console.log(`Usted ha ganado $ ${nuevoTMB.obtenerGanancia()}`);
+                    console.log(saldoFInal);
+
+                    // Archivo TXT PRUEBA
+                    fs.writeFileSync("info.txt", saldoFInal);
+
                 } else {
                     console.log(`\n` + `Siga participando`)
                 };
+
                 break;
 
             // TrabamonedasPro
@@ -84,7 +88,7 @@ export class Casino {
                 console.log(nuevoTMP.mostrarResultado());
 
                 if (nuevoTMP.esGanador(nuevoTMP.getResultado()) === true) {
-                    console.log(`Usted ha ganado ${nuevoTMP.obtenerGanancia()}`)
+                    console.log(`Usted ha ganado $ ${nuevoTMP.obtenerGanancia()}`)
                 } else {
                     console.log(`\n` + `Siga participando`)
                 };
@@ -105,6 +109,8 @@ export class Casino {
                 console.log(`Usted selecciono el juego Cara o Cruz` + `\n`)
                 console.log(nuevoCC.mostrarResultado());
                 break;
-        }
+        } }
+        catch (error) {
+            console.error(`Error al apostar: ${(error as Error).message}`);
     }
-}
+}}

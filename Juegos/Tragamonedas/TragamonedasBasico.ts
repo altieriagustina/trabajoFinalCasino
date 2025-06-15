@@ -1,7 +1,4 @@
-import { Casino } from "../../Casino";
 import { Tragamonedas } from "./Tragamonedas";
-import { Jugador } from "../../Jugador";
-import { IJuego } from "../../IJuego";
 
 export class TragamonedasBasico extends Tragamonedas {
     constructor() {
@@ -16,7 +13,9 @@ export class TragamonedasBasico extends Tragamonedas {
         if (this.montoApostado > this.apuestaMinima) {
             console.log(`\n` + `¡Esta girando la rueda magica!` + `\n`)
 
-            const frutas = ["🍒", "🍋", "🍇", "🍉"];
+            const frutas = ["🍒", "🍒", "🍒", "🍒"];
+            //const frutas = ["🍒", "🍋", "🍇", "🍉"];
+
             resultado = Array.from({ length: 3 }, () => frutas[Math.floor(Math.random() * frutas.length)]);
         }
         return resultado

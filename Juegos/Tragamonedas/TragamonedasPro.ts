@@ -1,7 +1,5 @@
-import { Casino } from "../../Casino";
 import { Tragamonedas } from "./Tragamonedas";
-import { Jugador } from "../../Jugador";
-import { IJuego } from "../../IJuego";
+
 
 export class TragamonedasPro extends Tragamonedas {
     constructor() {

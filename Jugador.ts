@@ -1,5 +1,3 @@
-import * as rs from "readline-sync"
-
 export class Jugador {
     private saldo: number;
 

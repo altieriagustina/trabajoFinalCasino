@@ -1,6 +1,4 @@
-import { Casino } from "../../Casino";
 import { IJuego } from "../../IJuego";
-import { Jugador } from "../../Jugador";
 import * as rs from "readline-sync"
 
 export abstract class Tragamonedas implements IJuego {
@@ -72,11 +70,10 @@ export abstract class Tragamonedas implements IJuego {
     public mostrarResultado(): string {
         return `Su Resultado es: ${this.resultado}`
     }
-    // Si esGanador devuelve TRUE (el jugador ganó) el monto apostado se * 2, sino se vuelve 0
+    // Si esGanador devuelve TRUE (el jugador ganó) el monto apostado se * 2, si esGanador es FALSE no gana nada
     public obtenerGanancia(): number {
         return this.esGanador(this.resultado) ? this.montoApostado * 2 : 0; //Operacion ternaria
     }
-
 
     // Metodos abstractos
     abstract girarRueda(): string[];

@@ -97,9 +97,8 @@ try {
             // MayorOMenor    
             case 3:
                 let nuevoMM = fabrica.crearJuego(`Mayor o Menor`);
-                console.log(`Usted selecciono el juego Mayor o Menor` + `\n`)
+                console.log(`Usted selecciono el juego ${nuevoMM.getNombre()}` + `\n`)
                 nuevoMM.apostar(nuevoMM.getMontoApostado(), this.jugador.getSaldo());
-                nuevoMM.jugar();
                 console.log(nuevoMM.mostrarResultado());
                 break;
 

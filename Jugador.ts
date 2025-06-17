@@ -26,6 +26,6 @@ export class Jugador {
     }
 
     public retirarSaldo(): string {
-        return `Retiró xxx saldo`;
+        return `Se retiran retiran $ ${this.getSaldo} de saldo`;
     }
 }

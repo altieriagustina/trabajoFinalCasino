@@ -104,8 +104,8 @@ try {
 
             // CaraOCruz
             case 4:
-                let nuevoCC = fabrica.crearJuego(`Cara O Cruz`);
-                console.log(`Usted selecciono el juego Cara o Cruz` + `\n`)
+                let nuevoCC = fabrica.crearJuego(`Cara o Cruz`);
+                console.log(`Usted selecciono el juego ${nuevoCC.getNombre()}` + `\n`)
                 console.log(nuevoCC.mostrarResultado());
                 break;
         } }

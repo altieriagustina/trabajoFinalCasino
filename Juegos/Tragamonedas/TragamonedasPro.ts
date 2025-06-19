@@ -5,16 +5,18 @@ export class TragamonedasPro extends Tragamonedas {
     constructor() {
         super()
         this.nombre = `Slot Pro`;
-        this.apuestaMinima = 10000;
+        this.apuestaMinima = 2000;
     }
 
     public girarRueda(): string[] {
         let resultado: string[] = [];
 
-        if (this.montoApostado > this.apuestaMinima) {
-            console.log(`\n` + `¡Esta girando la rueda magica!` + `\n`)
+        if (this.montoApostado >= this.apuestaMinima) {
+            console.log(`\n` + `¡GIRANDO LA RUEDA DE LA SUERTE!` + `\n`)
 
-            const simbolos = ["🔮", "💎", "❤️", "⭐", "🍀", "🚀"];
+            const simbolos = [" 🔮 ", " 💎 ", " ❤️ ", " ⭐ ", " 🍀 ", " 🚀 "];
+            //const simbolos = [" 💎 ", " 💎 ", " 💎 ", " 💎 ", " 💎 ", " 💎 "];
+
             resultado = Array.from({ length: 5 }, () => simbolos[Math.floor(Math.random() * simbolos.length)]); // Metodo from: crea un nuevo arreglo de 3 elementos y llena cada elemento con lo que devuelve la funcion flecha
         }
         return resultado;

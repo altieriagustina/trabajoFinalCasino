@@ -4,6 +4,7 @@ import { Jugador } from "./Jugador";
 import { FabricaDeJuegos } from "./FabricaDeJuegos";
 import * as fs from "fs";
 
+
 export class Casino {
     private juegos: IJuego[];
     private jugador: Jugador;
@@ -41,9 +42,9 @@ export class Casino {
 
     //Muestra menu de juegos disponibles y pide al usuario seleccionar el juego deseado
     public mostrarJuegos(): void {
-        console.log(`\n` + `Estos son los juegos disponibles`)
+        console.log(`\n` + `Estos son los juegos disponibles: `)
         let menu = [`Slot Basic`, `Slot Pro`, `Mayor o Menor`, `Cara O Cruz`];
-        let index = rs.keyInSelect(menu, `Selecciona el juego al que desea jugar: `);
+        let index = rs.keyInSelect(menu, `Seleccione el juego al que desea jugar: `);
 
         this.seleccionarJuego(index + 1);
     }
@@ -51,65 +52,115 @@ export class Casino {
     //Metodo que, según el indice que reciba, instancia el juego seleccionado 
     public seleccionarJuego(index: number): void {
         let fabrica = new FabricaDeJuegos();
-try {
-        // TrabamonedasBasico
-        switch (index) {
-            case 1:
-                let nuevoTMB = fabrica.crearJuego(`Tragamonedas Basico`);
-                console.log(`Usted selecciono el juego ${nuevoTMB.getNombre()}` + `\n`)
+        try {
+            // TrabamonedasBasico
+            switch (index) {
+                case 1:
+                    let nuevoTMB = fabrica.crearJuego(`Tragamonedas Basico`);
+                    console.log(`\n` + `Selecciono el juego ${nuevoTMB.getNombre()}
+Recuerde que este juego tiene una apuesta minima de $ ${nuevoTMB.apuestaMinima}` + `\n`)
 
-                nuevoTMB.apostar(nuevoTMB.getMontoApostado(), this.jugador.getSaldo());
-                nuevoTMB.jugar();
-                console.log(nuevoTMB.mostrarResultado());
+                    nuevoTMB.apostar(this.jugador.getSaldo());
+                    nuevoTMB.jugar();
+                    console.log(nuevoTMB.mostrarResultado());
 
-                let total: number = this.jugador.getSaldo() + (nuevoTMB.obtenerGanancia() - nuevoTMB.getMontoApostado());
-                let saldoFInal: string = `Usted tiene un saldo acumulado de $ ${total}`; // Saldo original mas ganancia
+                    let total: number = this.jugador.getSaldo() + (nuevoTMB.obtenerGanancia() - nuevoTMB.getMontoApostado());
+                    let saldoFInal: string = `Tiene un saldo acumulado de $ ${total}`; // Saldo original mas ganancia
+                    let perdedor: number = this.jugador.getSaldo() - nuevoTMB.getMontoApostado();
 
-                if (nuevoTMB.esGanador(nuevoTMB.getResultado()) === true) {
-                    console.log(`Usted ha ganado $ ${nuevoTMB.obtenerGanancia()}`);
-                    console.log(saldoFInal);
+                    if (nuevoTMB.esGanador(nuevoTMB.getResultado()) === true) {
+                        console.log(`💲💲💲 Ha ganado $ ${(nuevoTMB.obtenerGanancia() - nuevoTMB.getMontoApostado())} 💲💲💲` + `\n`);
 
-                    // Archivo TXT PRUEBA
-                    fs.writeFileSync("info.txt", saldoFInal);
+                        // ACTUALIZAR SALDO, SUMARLE SALDO QUE GANA
 
-                } else {
-                    console.log(`\n` + `Siga participando`)
-                };
+                        console.log(saldoFInal);
 
-                break;
 
-            // TrabamonedasPro
-            case 2:
-                let nuevoTMP = fabrica.crearJuego(`Tragamonedas Pro`);
-                console.log(`Usted selecciono el juego ${nuevoTMP.getNombre()}` + `\n`)
+                    } else {
+                        console.log(`\n` + `PERDIO ---> Siga participando` + `\n`)
+                        console.log(`Tiene un saldo de $ ${perdedor}`)
+                        // ACTUALIZAR SALDO, RESTARLE SALDO QUE YA USO
+                        // PONER SALDO - APUESTA
+                        let auxiliar = rs.question(`Desea seguir jugagando? (Y / N): ` + `\n`)
 
-                nuevoTMP.apostar(nuevoTMP.getMontoApostado(), this.jugador.getSaldo());
-                nuevoTMP.jugar();
-                console.log(nuevoTMP.mostrarResultado());
+                        if (auxiliar === `Y`) {
+                            if (perdedor !== 0) {
+                                this.seleccionarJuego(1);
+                            } else { console.log(`No tiene saldo para seguir jugando`) }
+                        } else {
+                            this.mostrarJuegos();
+                        }
+                        // Archivo TXT PRUEBA
+                        fs.writeFileSync("info.txt", saldoFInal);
 
-                if (nuevoTMP.esGanador(nuevoTMP.getResultado()) === true) {
-                    console.log(`Usted ha ganado $ ${nuevoTMP.obtenerGanancia()}`)
-                } else {
-                    console.log(`\n` + `Siga participando`)
-                };
-                break;
+                    }
 
-            // MayorOMenor    
-            case 3:
-                let nuevoMM = fabrica.crearJuego(`Mayor o Menor`);
-                console.log(`Usted selecciono el juego ${nuevoMM.getNombre()}` + `\n`)
-                nuevoMM.apostar(nuevoMM.getMontoApostado(), this.jugador.getSaldo());
-                console.log(nuevoMM.mostrarResultado());
-                break;
+                    break;
 
-            // CaraOCruz
-            case 4:
-                let nuevoCC = fabrica.crearJuego(`Cara o Cruz`);
-                console.log(`Usted selecciono el juego ${nuevoCC.getNombre()}` + `\n`)
-                console.log(nuevoCC.mostrarResultado());
-                break;
-        } }
+                // TrabamonedasPro
+                case 2:
+                    let nuevoTMP = fabrica.crearJuego(`Tragamonedas Pro`);
+                    console.log(`\n` + `Selecciono el juego ${nuevoTMP.getNombre()}
+Recuerde que este juego tiene una apuesta minima de $ ${nuevoTMP.apuestaMinima}` + `\n`)
+
+
+                    nuevoTMP.apostar(this.jugador.getSaldo());
+                    nuevoTMP.jugar();
+                    console.log(nuevoTMP.mostrarResultado());
+
+                    let total1: number = this.jugador.getSaldo() + (nuevoTMP.obtenerGanancia() - nuevoTMP.getMontoApostado());
+                    let saldoFInal1: string = `Tiene un saldo acumulado de $ ${total1}`; // Saldo original mas ganancia
+                    let perdedor1: number = this.jugador.getSaldo() - nuevoTMP.getMontoApostado();
+
+
+
+                    if (nuevoTMP.esGanador(nuevoTMP.getResultado()) === true) {
+                        console.log(`💲💲💲 Ha ganado $ ${(nuevoTMP.obtenerGanancia() - nuevoTMP.getMontoApostado())} 💲💲💲` + `\n`);
+
+                        // ACTUALIZAR SALDO, SUMARLE SALDO QUE GANA
+
+                        console.log(saldoFInal1);
+
+
+                    } else {
+                        console.log(`\n` + `PERDIO ---> Siga participando` + `\n`)
+                        console.log(`Tiene un saldo de $ ${perdedor1}`)
+
+                        // ACTUALIZAR SALDO, RESTARLE SALDO QUE YA USO
+                        // PONER SALDO - APUESTA
+                        let auxiliar = rs.question(`Desea seguir jugagando? (Y / N): `)
+
+                        if (auxiliar === `Y`) {if (perdedor1 !== 0) {
+                                this.seleccionarJuego(2);
+                            } else { console.log(`No tiene saldo para seguir jugando`) }
+                        } else {
+                            this.mostrarJuegos();
+                        }
+                        // Archivo TXT PRUEBA
+                        fs.writeFileSync("info.txt", saldoFInal1);
+
+                    };
+
+                    break;
+
+                // MayorOMenor    
+                case 3:
+                    let nuevoMM = fabrica.crearJuego(`Mayor o Menor`);
+                    console.log(`Ha seleccionado el juego ${nuevoMM.getNombre()}` + `\n`)
+                    nuevoMM.apostar(nuevoMM.getMontoApostado(), this.jugador.getSaldo());
+                    console.log(nuevoMM.mostrarResultado());
+                    break;
+
+                // CaraOCruz
+                case 4:
+                    let nuevoCC = fabrica.crearJuego(`Cara o Cruz`);
+                    console.log(`Ha seleccionado el juego ${nuevoCC.getNombre()}` + `\n`)
+                    console.log(nuevoCC.mostrarResultado());
+                    break;
+            }
+        }
         catch (error) {
             console.error(`Error al apostar: ${(error as Error).message}`);
+        }
     }
-}}
+}

@@ -45,8 +45,8 @@ export abstract class Tragamonedas implements IJuego {
 
     //Metodos IJuego
 
-    public apostar(monto: number, saldoJugador: number): void {
-        monto = rs.questionInt(`Ingrese el monto que desea apostar: `)
+    public apostar(saldoJugador: number): void {
+        const monto = rs.questionInt(`Ingrese el monto que desea apostar: `)
 
         //El monto aapostado no puede ser mayor al saldo del jugador 
         if (monto > saldoJugador) {
@@ -68,7 +68,7 @@ export abstract class Tragamonedas implements IJuego {
     }
 
     public mostrarResultado(): string {
-        return `Su Resultado es: ${this.resultado}`
+        return `Su Resultado es: ${this.resultado}` + `\n`
     }
     // Si esGanador devuelve TRUE (el jugador ganó) el monto apostado se * 2, si esGanador es FALSE no gana nada
     public obtenerGanancia(): number {

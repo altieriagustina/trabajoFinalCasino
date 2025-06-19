@@ -4,17 +4,17 @@ export class TragamonedasBasico extends Tragamonedas {
     constructor() {
         super()
         this.nombre = `Slot Basic`
-        this.apuestaMinima = 5000;
+        this.apuestaMinima = 500;
     }
 
     public girarRueda(): string[] {
         let resultado: string[] = [];
 
-        if (this.montoApostado > this.apuestaMinima) {
-            console.log(`\n` + `¡Esta girando la rueda magica!` + `\n`)
+        if (this.montoApostado >= this.apuestaMinima) {
+            console.log(`\n` + `¡Esta girando la rueda de las frutas magicas!` + `\n`)
 
-            const frutas = ["🍒", "🍒", "🍒", "🍒"];
-            //const frutas = ["🍒", "🍋", "🍇", "🍉"];
+            const frutas = [" 🍒 ", " 🍋 ", " 🍇 ", " 🍉 "];
+            //const frutas = [" 🍒 ", " 🍒 ", " 🍒 ", " 🍒 "];
 
             resultado = Array.from({ length: 3 }, () => frutas[Math.floor(Math.random() * frutas.length)]);
         }

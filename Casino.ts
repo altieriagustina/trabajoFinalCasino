@@ -16,8 +16,10 @@ export class Casino {
 
     // Presentación: pide la edad y la valida, si es menor de 18años muestra mensaje y termina, si es mayor pide ingresar saldo a adquirir
     public presentacion(pEdad: number): void {
+
         const edad: number = rs.questionInt(`Ingrese su edad: `)
-        if (edad >= 18) {
+
+        if (edad >= 18 && edad < 100) {
             console.log(`
                 🎰 Bienvenido al Casino Timberos 🎰
                 ----------------------------------------------
@@ -31,8 +33,10 @@ export class Casino {
 
             this.mostrarJuegos();
 
-        } else {
+        } else if (edad < 18) {
             console.log(`Debe ser mayor de 18 años para ingresar`)
+        } else if (edad >= 100 || edad <= 0) {
+            console.log(`Ingrese una edad valida`)
         }
     }
 
@@ -60,13 +64,14 @@ export class Casino {
                     console.log(`\n` + `Selecciono el juego ${nuevoTMB.getNombre()}
 Recuerde que este juego tiene una apuesta minima de $ ${nuevoTMB.apuestaMinima}` + `\n`)
 
+
                     nuevoTMB.apostar(this.jugador.getSaldo());
                     nuevoTMB.jugar();
                     console.log(nuevoTMB.mostrarResultado());
 
                     let total: number = this.jugador.getSaldo() + (nuevoTMB.obtenerGanancia() - nuevoTMB.getMontoApostado());
                     let saldoFInal: string = `Tiene un saldo acumulado de $ ${total}`; // Saldo original mas ganancia
-                    let perdedor: number = this.jugador.getSaldo() - nuevoTMB.getMontoApostado();
+                    let perdedor: number = this.jugador.getSaldo() - nuevoTMB.getMontoApostado(); // Saldo si el jugador pierde
 
                     if (nuevoTMB.esGanador(nuevoTMB.getResultado()) === true) {
                         console.log(`💲💲💲 Ha ganado $ ${(nuevoTMB.obtenerGanancia() - nuevoTMB.getMontoApostado())} 💲💲💲` + `\n`);
@@ -75,13 +80,12 @@ Recuerde que este juego tiene una apuesta minima de $ ${nuevoTMB.apuestaMinima}`
 
                         console.log(saldoFInal);
 
-
                     } else {
                         console.log(`\n` + `PERDIO ---> Siga participando` + `\n`)
                         console.log(`Tiene un saldo de $ ${perdedor}`)
                         // ACTUALIZAR SALDO, RESTARLE SALDO QUE YA USO
                         // PONER SALDO - APUESTA
-                        let auxiliar = rs.question(`Desea seguir jugagando? (Y / N): ` + `\n`)
+                        let auxiliar = rs.question(`\n` + `Desea seguir jugagando? (Y / N): `)
 
                         if (auxiliar === `Y`) {
                             if (perdedor !== 0) {
@@ -128,9 +132,10 @@ Recuerde que este juego tiene una apuesta minima de $ ${nuevoTMP.apuestaMinima}`
 
                         // ACTUALIZAR SALDO, RESTARLE SALDO QUE YA USO
                         // PONER SALDO - APUESTA
-                        let auxiliar = rs.question(`Desea seguir jugagando? (Y / N): `)
+                        let auxiliar = rs.question(`\n` + `Desea seguir jugagando? (Y / N): `)
 
-                        if (auxiliar === `Y`) {if (perdedor1 !== 0) {
+                        if (auxiliar === `Y`) {
+                            if (perdedor1 !== 0) {
                                 this.seleccionarJuego(2);
                             } else { console.log(`No tiene saldo para seguir jugando`) }
                         } else {
@@ -157,10 +162,16 @@ Recuerde que este juego tiene una apuesta minima de $ ${nuevoTMP.apuestaMinima}`
                     console.log(`Ha seleccionado el juego ${nuevoCC.getNombre()}` + `\n`)
                     console.log(nuevoCC.mostrarResultado());
                     break;
+
+                // Despedida al cancelar
+                case 0:
+                    console.log(`¡ ESPERAMOS VERTE PRONTO !`);
+                    break;
             }
         }
         catch (error) {
-            console.error(`Error al apostar: ${(error as Error).message}`);
+            console.error(`Error al apostar: ${(error as Error).message}`)
+            this.mostrarJuegos();
         }
     }
 }

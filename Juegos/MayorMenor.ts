@@ -1,75 +1,96 @@
 import { IJuego } from "../IJuego";
-import * as rs from "readline-sync"
+import * as rs from "readline-sync";
 
 export class MayorMenor implements IJuego {
-    private nombre: string;
-    private cartaActual: number;
-    private resultado: string;
-    private ganancia: number;
-    private montoApostado: number;
-    
-    constructor() {
-        this.nombre = "Mayor o Menor";
-        this.resultado = "";
-        this.ganancia = 0;
-        this.cartaActual = 0;
-        this.montoApostado = 0;
+  private nombre: string;
+  private cartaActual: number;
+  private resultado: string;
+  private ganancia: number;
+  private montoApostado: number;
+  private eleccion: "mayor" | "menor" | null;
+
+  constructor() {
+    this.nombre = "Mayor o Menor";
+    this.resultado = "";
+    this.ganancia = 0;
+    this.cartaActual = 0;
+    this.montoApostado = 0;
+    this.eleccion = null;
+  }
+
+  public getNombre(): string {
+    return this.nombre;
+  }
+
+  public getMontoApostado(): number {
+    return this.montoApostado;
+  }
+
+  public setEleccion(eleccion: string): void {
+    const eleccionLower = eleccion.toLowerCase();
+    if (eleccionLower !== "mayor" && eleccionLower !== "menor") {
+      throw new Error("Eleccion invalida");
     }
-    
-    public getNombre(): string {
-        return this.nombre;
+    this.eleccion = eleccionLower as "mayor" | "menor";
+  }
+
+  public apostar(monto: number, saldo: number): void {
+    if (monto > saldo) {
+      throw new Error("Saldo insuficiente");
     }
-    
-    public getMontoApostado(): number {
-        this.montoApostado = rs.questionInt("Ingrese el monto a apostar: ");
-        return this.montoApostado;
+    if (monto <= 0) {
+      throw new Error("Monto debe ser mayor a 0");
     }
-    
-    public apostar(monto: number, saldo: number): void {
-        if (monto > saldo) {
-            this.resultado = "No tiene saldo suficiente.";
-            return;
-        }
-        this.cartaActual = this.sacarCarta();
-        console.log(`Tu carta es: ${this.cartaActual}`);
-        const eleccion = rs.question("¿La siguiente será 'mayor' o 'menor'?: ").toLowerCase();
-        const nuevaCarta = this.sacarCarta();
-        console.log(`La nueva carta es: ${nuevaCarta}`);
-        if (nuevaCarta === this.cartaActual) {
-            this.resultado = "Empate. Recuperás tu apuesta.";
-            this.ganancia = monto;
-        } else if (
-            (eleccion === "mayor" && nuevaCarta > this.cartaActual) ||
-            (eleccion === "menor" && nuevaCarta < this.cartaActual)
-        ) {
-            this.resultado = " ¡Ganaste!";
-            this.ganancia = monto * 2;
-        } else {
-            this.resultado = "Perdiste.";
-            this.ganancia = 0;
-        }
+    if (this.eleccion === null) {
+      throw new Error("No se ha seleccionado mayor o menor");
     }
-    
-    public jugar(): void {
+    this.montoApostado = monto;
+  }
+
+  public jugar(): void {
+    this.cartaActual = this.sacarCarta();
+    const nuevaCarta = this.sacarCarta();
+
+    if (this.eleccion === null) {
+      this.resultado = "No se realizo ninguna apuesta";
+      return;
     }
-    
-    public mostrarResultado(): string {
-        return this.resultado;
+
+    console.log(`Carta actual: ${this.cartaActual}`);
+    console.log(`Nueva carta: ${nuevaCarta}`);
+
+    if (nuevaCarta === this.cartaActual) {
+      this.resultado = "Empate. Recuperas tu apuesta.";
+      this.ganancia = this.montoApostado;
+    } else if (
+      (this.eleccion === "mayor" && nuevaCarta > this.cartaActual) ||
+      (this.eleccion === "menor" && nuevaCarta < this.cartaActual)
+    ) {
+      this.resultado = "Gano";
+      this.ganancia = this.montoApostado * 2;
+    } else {
+      this.resultado = "Perdio";
+      this.ganancia = 0;
     }
-    
-    public obtenerGanancia(): number {
-        return this.ganancia;
-    }
-    
-    private sacarCarta(): number {
-        return Math.floor(Math.random() * 13) + 1;
-    }
-    
-    public esGanador(resultado: string): boolean {
-        return this.ganancia > 0;
-    }
-    
-    public getResultado(): string {
-        return this.resultado;
-    }
+  }
+
+  public mostrarResultado(): string {
+    return `Resultado: ${this.resultado}`;
+  }
+
+  public obtenerGanancia(): number {
+    return this.ganancia;
+  }
+
+  public esGanador(resultado: string): boolean {
+    return this.ganancia > 0;
+  }
+
+  public getResultado(): string {
+    return this.resultado;
+  }
+
+  private sacarCarta(): number {
+    return Math.floor(Math.random() * 13) + 1;
+  }
 }

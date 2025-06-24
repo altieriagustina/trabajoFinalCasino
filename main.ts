@@ -14,7 +14,7 @@ const jugador1 = new Jugador(0);
 const casino = new Casino(juegos, jugador1);
 
 
-casino.presentacion(0);
+casino.presentacion();
 
 
 

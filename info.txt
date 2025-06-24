@@ -1,1 +1,1 @@
-Tiene un saldo acumulado de $ 4000
+Su saldo es: $ 5000

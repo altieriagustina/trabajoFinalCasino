@@ -14,6 +14,14 @@
 
 ---
 
+## Instrucciones para la instalacion
+
+- 1- Clonar repositorio, Git Bash: git clone https://github.com/altieriagustina/trabajoFinalCasino.git
+- 2- Instalar las dependencias: npm install
+- 3- Ejecutar el servidor de desarrollo: ts-node main.ts
+
+---
+
 ## 🧠 Objetivo del Proyecto
 
 Aplicar conceptos clave de desarrollo en TypeScript:

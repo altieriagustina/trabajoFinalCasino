@@ -14,7 +14,7 @@
 
 ---
 
-## Instrucciones para la instalacion
+## ✅ Instrucciones para la instalacion
 
 - 1- Clonar repositorio, Git Bash: git clone https://github.com/altieriagustina/trabajoFinalCasino.git
 - 2- Instalar las dependencias: npm install
